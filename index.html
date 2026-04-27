@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MTI Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-coral:   #FC624F;
+      --color-yellow:  #F7CF46;
+      --color-green:   #73DC8A;
+      --color-purple:  #7B31F6;
+      --color-black:   #111111;
+      --color-white:   #FFFFFF;
+      --color-light:   #F5F7FA;
+      --color-text:    #1A1A1A;
+      --color-muted:   #6B7280;
+      --color-border:  #E5E7EB;
+      --font:          'Space Grotesk', Arial, sans-serif;
+      --max-width:     1100px;
+      --radius:        8px;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--color-text);
+      background: var(--color-white);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-logo-mark {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .nav-logo-mark span {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .nav-brand-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      color: var(--color-white);
+    }
+
+    .nav-brand-text em {
+      font-style: normal;
+      font-weight: 300;
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title .accent {
+      color: var(--color-coral);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--color-muted);
+      max-width: 440px;
+      line-height: 1.7;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .divider hr {
+      border: none;
+      border-top: 2px solid var(--color-black);
+    }
+
+    /* ── Projects Section ── */
+    .projects {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Project Card ── */
+    .project-card {
+      border: 1.5px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--color-white);
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .card-accent {
+      height: 6px;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.85rem;
+      background: var(--color-light);
+      color: var(--color-muted);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--color-black);
+      color: var(--color-black);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .card-link:hover {
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+
+    .card-link svg {
+      width: 14px; height: 14px;
+    }
+
+    .card-status {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-live  { color: #16a34a; }
+    .status-soon  { color: var(--color-muted); }
+
+    /* Coming soon card */
+    .project-card.coming-soon {
+      opacity: 0.65;
+    }
+
+    .project-card.coming-soon .card-link {
+      border-color: var(--color-border);
+      color: var(--color-muted);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    /* ── About Strip ── */
+    .about-strip {
+      background: var(--color-light);
+      border-top: 1.5px solid var(--color-border);
+      border-bottom: 1.5px solid var(--color-border);
+      padding: 3rem 2rem;
+    }
+
+    .about-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .about-heading {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .about-body {
+      font-size: 0.95rem;
+      color: var(--color-muted);
+      line-height: 1.75;
+    }
+
+    .about-body a {
+      color: var(--color-coral);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 2rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+
+    .footer-links a:hover { opacity: 1; }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding-top: 3rem;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-brand">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <span style="background:#FC624F"></span>
+        <span style="background:#F7CF46"></span>
+        <span style="background:#73DC8A"></span>
+        <span style="background:#7B31F6"></span>
+      </div>
+      <div class="nav-brand-text">
+        MERL Tech
+        <em>Projects</em>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="https://merltech.org/" target="_blank" rel="noopener">merltech.org ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">MTI Portfolio</p>
+      <h1 class="hero-title">
+        Experimental tools<br />for <span class="accent">responsible</span><br />MERL practice.
+      </h1>
+      <p class="hero-desc">
+        A collection of open projects from the MERL Tech Initiative — exploring how digital tools can support monitoring, evaluation, research, and learning in the social sector.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Divider ── -->
+  <div class="divider"><hr /></div>
+
+  <!-- ── Projects ── -->
+  <section class="projects">
+    <div class="section-header">
+      <span class="section-label">Projects</span>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- Project 1: AEA-MTI Hackathon -->
+      <article class="project-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #FC624F, #F7CF46, #73DC8A, #7B31F6);"></div>
+        <div class="card-body">
+          <span class="card-tag">Hackathon</span>
+          <h2 class="card-title">AEA / MTI Virtual Hackathon 2.0</h2>
+          <p class="card-desc">
+            A fully virtual, low-barrier hackathon for evaluation practitioners exploring AI in evaluation practice. Co-hosted by the American Evaluation Association and MTI/MERL Tech. Choose your path: Critique, Create, or Collab.
+          </p>
+          <div class="card-footer">
+            <a class="card-link" href="AEA-MTI-HACKATHON-2/index.html">
+              View project
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </a>
+            <span class="card-status status-live">● Live</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: GEDCResearch (coming soon) -->
+      <article class="project-card coming-soon">
+        <div class="card-accent" style="background: var(--color-purple);"></div>
+        <div class="card-body">
+          <span class="card-tag">Research</span>
+          <h2 class="card-title">GEDC Research</h2>
+          <p class="card-desc">
+            A sandbox project exploring research tools and resources developed in partnership with the Global Evaluation and Development Community. Details coming soon.
+          </p>
+          <div class="card-footer">
+            <a class="card-link" href="https://merl-tech.github.io/GEDCResearch/" target="_blank" rel="noopener">
+              View project
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </a>
+            <span class="card-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── About Strip ── -->
+  <section class="about-strip">
+    <div class="about-inner">
+      <div>
+        <p class="about-label">About MTI</p>
+        <h2 class="about-heading">What is the MERL Tech Initiative?</h2>
+      </div>
+      <div class="about-body">
+        <p>
+          <strong>MERL Tech</strong> is a term for digital tools and approaches that enable monitoring, evaluation, research and learning (MERL). The MERL Tech Initiative (MTI) works with social sector organizations to achieve thoughtful, tech-enabled program design, implementation, and MERL. We convene communities of practice to share learning and advance responsible, ethical, realistic digital approaches that center people, communities, and societies.
+        </p>
+        <p style="margin-top: 0.75rem;">
+          <a href="https://merltech.org/" target="_blank" rel="noopener">Learn more at merltech.org →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">MERL Tech Initiative</span>
+      <ul class="footer-links">
+        <li><a href="https://merltech.org/" target="_blank" rel="noopener">merltech.org</a></li>
+        <li><a href="https://github.com/merl-tech" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

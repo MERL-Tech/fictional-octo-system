@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live gallery of all submissions to AEA/MTI Hackathon 2: Critique • Create • Collab. Auto-refreshes every 60 seconds.">
+  <title>Open Gallery — AEA/MTI Hackathon 2</title>
+  <link rel="stylesheet" href="assets/brand/brand.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER / NAV
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="cobrand-logos">
+        <a href="https://www.merltech.org" class="logo-link logo-link--merl" aria-label="MERL Tech" target="_blank" rel="noopener">
+          <img src="assets/brand/MTI%20black%20w%20color%20horizontal%20(5).png" alt="The MERL Tech Initiative logo">
+        </a>
+        <div class="cobrand-divider" aria-hidden="true"></div>
+        <a href="https://www.eval.org" class="logo-link logo-link--aea" aria-label="American Evaluation Association" target="_blank" rel="noopener">
+          <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="critique.html">Critique</a>
+        <a href="create.html">Create</a>
+        <a href="collab.html">Collab</a>
+        <a href="gallery.html" class="active nav-cta">Open Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ====================================================================
+         GALLERY HEADER
+         ==================================================================== -->
+    <section class="gallery-header" aria-labelledby="gallery-title">
+      <div class="container">
+        <h1 class="gallery-header__title" id="gallery-title">Open Gallery</h1>
+        <div class="gallery-header__meta">
+          <span>
+            <span id="gallery-count" class="gallery-header__count" aria-live="polite" aria-atomic="true">Loading&hellip;</span>
+          </span>
+          <span aria-hidden="true">&middot;</span>
+          <span id="gallery-timestamp" aria-live="polite">Fetching submissions&hellip;</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>Auto-refreshes every 60 seconds</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FILTER BAR + GALLERY GRID
+         ==================================================================== -->
+    <section class="gallery-section" aria-labelledby="gallery-title">
+      <div class="container">
+
+        <!-- Primary filter: path -->
+        <div class="filter-bar" role="group" aria-label="Filter submissions by path">
+          <div class="filter-group" id="filter-bar-primary">
+            <span class="filter-label" id="primary-filter-label">Path:</span>
+            <button
+              class="filter-btn is-active"
+              data-filter="All"
+              aria-pressed="true"
+              aria-describedby="primary-filter-label"
+            >All</button>
+            <button
+              class="filter-btn"
+              data-filter="Critique"
+              aria-pressed="false"
+              aria-describedby="primary-filter-label"
+            >Critique</button>
+            <button
+              class="filter-btn"
+              data-filter="Create"
+              aria-pressed="false"
+              aria-describedby="primary-filter-label"
+            >Create</button>
+            <button
+              class="filter-btn"
+              data-filter="Collab"
+              aria-pressed="false"
+              aria-describedby="primary-filter-label"
+            >Collab</button>
+          </div>
+
+          <!-- Secondary filter: option (chips populated by JS after load) -->
+          <div
+            class="filter-group"
+            id="filter-bar-secondary"
+            role="group"
+            aria-label="Filter by option"
+          >
+            <!-- Chips injected here by gallery.js after data loads -->
+          </div>
+        </div>
+
+        <!-- Card grid — populated by gallery.js -->
+        <div
+          class="gallery-grid"
+          id="gallery-grid"
+          aria-label="Submission gallery"
+          aria-live="polite"
+          aria-atomic="false"
+        >
+          <!-- Skeleton cards are rendered here on initial load -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="site-footer__grid">
+
+        <div class="site-footer__brand">
+          <div class="site-footer__cobrand">
+            <img src="assets/brand/MTI%20white%20w%20color%20horizontal%20(3).png" alt="The MERL Tech Initiative logo" class="logo-mti">
+            <div class="site-footer__cobrand-divider" aria-hidden="true"></div>
+            <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+          </div>
+          <p class="site-footer__tagline">
+            AEA/MTI Hackathon 2: Critique • Create • Collab<br>
+            A virtual event for evaluation practitioners.
+          </p>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Paths</p>
+          <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="critique.html">Critique</a></li>
+            <li><a href="create.html">Create</a></li>
+            <li><a href="collab.html">Collab</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Submit</p>
+          <ul class="site-footer__links">
+            <li><a href="form-critique.html">Submit Critique</a></li>
+            <li><a href="form-create.html">Submit Create</a></li>
+            <li><a href="form-collab.html">Submit Collab</a></li>
+            
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeVwKueVb0ZkyGOTK9EaOwVVYNubR9XfIdwF8cpMh72be8ARA/viewform" target="_blank" rel="noopener">Need support? Join our Slack to access the hackathon channel.</a></li>
+            <li><a href="hot-take-wall.html">Hot Take Wall</a></li>
+            <li><a href="lottery-rules.html">Lottery rules</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="site-footer__bottom">
+        Co-hosted by the American Evaluation Association &amp; MTI/MERL Tech.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       GALLERY CARD MODAL
+       ======================================================================== -->
+  <div
+    class="gallery-modal"
+    id="gallery-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-claim"
+    hidden
+  >
+    <div class="gallery-modal__backdrop" id="modal-backdrop"></div>
+    <div class="gallery-modal__panel">
+      <button class="gallery-modal__close" id="modal-close" aria-label="Close">&#215;</button>
+      <div class="gallery-modal__top" aria-hidden="true"></div>
+      <div class="gallery-modal__content" id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Gallery JS — must come after DOM, before closing body -->
+  <script src="assets/js/gallery.js"></script>
+  <script>
+    // Nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav    = document.getElementById('site-nav');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('is-open');
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+
+    // Init gallery
+    document.addEventListener('DOMContentLoaded', initGallery);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submit your Create path entry for AEA/MTI Hackathon 2.">
+  <title>Submit — Create — AEA/MTI Hackathon 2</title>
+  <link rel="stylesheet" href="assets/brand/brand.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER / NAV
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="cobrand-logos">
+        <a href="https://www.merltech.org" class="logo-link logo-link--merl" aria-label="MERL Tech" target="_blank" rel="noopener">
+          <img src="assets/brand/MTI%20black%20w%20color%20horizontal%20(5).png" alt="The MERL Tech Initiative logo">
+        </a>
+        <div class="cobrand-divider" aria-hidden="true"></div>
+        <a href="https://www.eval.org" class="logo-link logo-link--aea" aria-label="American Evaluation Association" target="_blank" rel="noopener">
+          <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo">
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="critique.html">Critique</a>
+        <a href="create.html" class="active">Create</a>
+        <a href="collab.html">Collab</a>
+        <a href="gallery.html" class="nav-cta">Open Gallery</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Form header -->
+    <div class="form-header">
+      <div class="container">
+        <p class="form-header__eyebrow">Hackathon 2 — Submission Form</p>
+        <h1 class="form-header__title">Submit your Create entry</h1>
+        <p class="form-header__subtitle">
+          For the <strong>Create</strong> path. Your entry will appear in the public gallery within a minute of submission.
+        </p>
+      </div>
+    </div>
+
+    <div class="form-page">
+      <div class="container">
+        <div class="form-wrapper">
+
+          <!-- Success message -->
+          <div class="form-message form-message--success" id="form-success" role="alert" aria-live="polite">
+            <p class="form-message__title">&#127881; Submission received!</p>
+            <p>Your Create entry is on its way to the gallery. It may take up to a minute to appear. <a href="gallery.html">View the gallery &rarr;</a></p>
+          </div>
+
+          <!-- Error message -->
+          <div class="form-message form-message--error" id="form-error" role="alert" aria-live="polite">
+            <p class="form-message__title">Something went wrong</p>
+            <p id="form-error-detail">Your submission could not be sent. Please check your connection and try again. Your work is preserved in the form below.</p>
+          </div>
+
+          <form
+            id="submission-form"
+            class="submission-form"
+            novalidate
+            aria-label="Create path submission form"
+          >
+
+            <!-- Name + Email -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="field-name">
+                  Your name <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="field-name"
+                  name="name"
+                  required
+                  autocomplete="name"
+                  placeholder="Jane Smith"
+                  maxlength="100"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="field-email">
+                  Email address <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="field-email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="jane@example.org"
+                >
+                <p class="field-hint">Not displayed publicly. Used only for event communication.</p>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Option -->
+            <div class="form-group">
+              <label for="field-option">
+                Option chosen <span class="required" aria-label="required">*</span>
+              </label>
+              <select id="field-option" name="option" required aria-describedby="option-hint">
+                <option value="" disabled selected>Select your option&hellip;</option>
+                <option value="Prompt Lab">Prompt Lab</option>
+                <option value="Custom Chatbot: Build a Tiny Helper">Custom Chatbot: Build a Tiny Helper</option>
+                <option value="Vibe-Coding Studio">Vibe-Coding Studio</option>
+              </select>
+              <p class="field-hint" id="option-hint">Which Create activity did you complete?</p>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Name / one-liner (label updates per option) -->
+            <div class="form-group">
+              <label for="field-claim" id="claim-label">
+                Name of your prompt <span class="required" aria-label="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="field-claim"
+                name="claim"
+                required
+                maxlength="140"
+                placeholder="e.g. The Jargon Simplifier"
+                aria-label="Name of your prompt"
+                aria-describedby="claim-counter claim-hint"
+              >
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 0.5rem;">
+                <p class="field-hint" id="claim-hint">What did you name or call your prompt? If it doesn't have a name, describe the task in a few words (e.g., 'Plain-language survey question rewriter'). Max 140 characters.</p>
+                <span class="char-counter" id="claim-counter" aria-live="polite">0 / 140</span>
+              </div>
+            </div>
+
+            <!-- Evidence of work (label changes per option) -->
+            <div class="form-group">
+              <label for="field-evidence" id="evidence-label">
+                Evidence of work <span class="required" aria-label="required">*</span>
+              </label>
+              <textarea
+                id="field-evidence"
+                name="evidence"
+                required
+                rows="6"
+                placeholder="Paste your prompt(s), system prompt, example exchanges, or description of what you built..."
+                aria-describedby="evidence-hint"
+              ></textarea>
+              <p class="field-hint" id="evidence-hint">
+                Paste your prompt and the AI's best response. If you tried multiple versions, include the one that worked best and note what you changed. This is the heart of your gallery card — other practitioners will learn directly from what you share here.
+              </p>
+            </div>
+
+            <!-- Link to output -->
+            <div class="form-group">
+              <label for="field-link">
+                Link to output <span class="optional">(optional)</span>
+              </label>
+              <input
+                type="url"
+                id="field-link"
+                name="link"
+                placeholder="https://..."
+                aria-describedby="link-hint"
+              >
+              <p class="field-hint" id="link-hint">
+                Not required — your prompt and output above is enough. But if you made your Claude conversation public or saved your output somewhere (a shared doc, Claude Artifact, etc.), you can paste the link here.
+              </p>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- 140-char reflection -->
+            <div class="form-group">
+              <label for="field-reflection">
+                140-character reflection <span class="required" aria-label="required">*</span>
+              </label>
+              <textarea
+                id="field-reflection"
+                name="reflection"
+                required
+                rows="3"
+                maxlength="140"
+                placeholder="What surprised you? What would you do differently? What should others know?"
+                aria-describedby="reflection-counter reflection-hint"
+              ></textarea>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 0.5rem;">
+                <p class="field-hint" id="reflection-hint">This appears on your gallery card. Max 140 characters.</p>
+                <span class="char-counter" id="reflection-counter" aria-live="polite">0 / 140</span>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Consent block -->
+            <div class="consent-block" role="group">
+              <p class="consent-block__license">
+                By submitting, you retain ownership of your work. We publish all submissions under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, meaning others may reuse and adapt them with credit to you.
+              </p>
+              <label class="checkbox-group" for="field-ownership">
+                <input type="checkbox" id="field-ownership" name="ownership" required value="confirmed">
+                <span class="checkbox-label">This is my own work, or I have permission to share it. <span class="required" aria-label="required">*</span></span>
+              </label>
+              <label class="checkbox-group" for="field-ethics">
+                <input type="checkbox" id="field-ethics" name="ethics" required value="confirmed">
+                <span class="checkbox-label">I confirm this submission contains no personally identifiable information (PII) about research participants or clients. <span class="required" aria-label="required">*</span></span>
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn--create btn--lg" id="submit-btn" disabled>
+                Submit my Create entry
+              </button>
+              <p style="font-size: var(--text-xs); color: var(--color-muted); max-width: 30ch;">
+                Your name will be displayed publicly in the gallery.
+              </p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="site-footer__grid">
+
+        <div class="site-footer__brand">
+          <div class="site-footer__cobrand">
+            <img src="assets/brand/MTI%20white%20w%20color%20horizontal%20(3).png" alt="The MERL Tech Initiative logo" class="logo-mti">
+            <div class="site-footer__cobrand-divider" aria-hidden="true"></div>
+            <img src="assets/brand/AEA letters.png" alt="American Evaluation Association logo" class="logo-aea">
+          </div>
+          <p class="site-footer__tagline">
+            AEA/MTI Hackathon 2: Critique • Create • Collab<br>
+            A virtual event for evaluation practitioners.
+          </p>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Paths</p>
+          <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="critique.html">Critique</a></li>
+            <li><a href="create.html">Create</a></li>
+            <li><a href="collab.html">Collab</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__heading">Submit</p>
+          <ul class="site-footer__links">
+            <li><a href="form-critique.html">Submit Critique</a></li>
+            <li><a href="form-create.html">Submit Create</a></li>
+            <li><a href="form-collab.html">Submit Collab</a></li>
+            
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeVwKueVb0ZkyGOTK9EaOwVVYNubR9XfIdwF8cpMh72be8ARA/viewform" target="_blank" rel="noopener">Need support? Join our Slack to access the hackathon channel.</a></li>
+            <li><a href="hot-take-wall.html">Hot Take Wall</a></li>
+            <li><a href="lottery-rules.html">Lottery rules</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="site-footer__bottom">
+        Co-hosted by the American Evaluation Association &amp; MTI/MERL Tech.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdF0DkBRywQeJczXI_vLa8pYHtuxY00OadEdFDWurThEYk5gfU_sdBZC5RpJc9IhrIxQ/exec';
+
+    // Claim field copy per option
+    const CLAIM_FIELDS = {
+      'Prompt Lab':                          { label: 'Name of your prompt',       placeholder: 'e.g. The Jargon Simplifier' },
+      'Custom Chatbot: Build a Tiny Helper': { label: 'Name of your chatbot',      placeholder: 'e.g. The Survey Clarity Bot' },
+      'Vibe-Coding Studio':                  { label: 'Name of your tool or app',  placeholder: 'e.g. The Interview Theme Coder' },
+    };
+
+    // Evidence field label copy per option
+    const EVIDENCE_LABELS = {
+      'Prompt Lab':                          'Your prompt(s) and the AI\'s best output (paste or describe)',
+      'Custom Chatbot: Build a Tiny Helper': 'Your system prompt and 2–3 example exchanges',
+      'Vibe-Coding Studio':                  'Key prompts you used and description of what you built',
+    };
+
+    const form        = document.getElementById('submission-form');
+    const optSel      = document.getElementById('field-option');
+    const claimLabel  = document.getElementById('claim-label');
+    const claimInput  = document.getElementById('field-claim');
+    const evLabel     = document.getElementById('evidence-label');
+    const submitBtn   = document.getElementById('submit-btn');
+    const successEl   = document.getElementById('form-success');
+    const errorEl     = document.getElementById('form-error');
+    const errorDetail = document.getElementById('form-error-detail');
+    const chkOwnership = document.getElementById('field-ownership');
+    const chkEthics    = document.getElementById('field-ethics');
+
+    // ── Consent: keep submit disabled until both boxes checked ────────────────
+    function updateSubmitState() {
+      submitBtn.disabled = !(chkOwnership.checked && chkEthics.checked);
+    }
+    chkOwnership.addEventListener('change', updateSubmitState);
+    chkEthics.addEventListener('change', updateSubmitState);
+
+    // ── Dynamic claim + evidence labels on option change ──────────────────────
+    optSel.addEventListener('change', () => {
+      const cf = CLAIM_FIELDS[optSel.value];
+      if (cf) {
+        claimLabel.innerHTML = `${cf.label} <span class="required" aria-label="required">*</span>`;
+        claimInput.placeholder = cf.placeholder;
+        claimInput.setAttribute('aria-label', cf.label);
+      }
+      const labelBase = EVIDENCE_LABELS[optSel.value] || 'Evidence of work';
+      evLabel.innerHTML = `${labelBase} <span class="required" aria-label="required">*</span>`;
+    });
+
+    // ── Character counters ────────────────────────────────────────────────────
+    function attachCounter(inputId, counterId, max) {
+      const input   = document.getElementById(inputId);
+      const counter = document.getElementById(counterId);
+      const update = () => {
+        const len = input.value.length;
+        counter.textContent = `${len} / ${max}`;
+        counter.className = 'char-counter' + (len >= max ? ' danger' : len >= max * 0.85 ? ' warning' : '');
+      };
+      input.addEventListener('input', update);
+      update();
+    }
+
+    attachCounter('field-claim',      'claim-counter',      140);
+    attachCounter('field-reflection', 'reflection-counter', 140);
+
+    // ── Form submit ───────────────────────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      successEl.classList.remove('is-visible');
+      errorEl.classList.remove('is-visible');
+
+      submitBtn.classList.add('is-loading');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      const fd = new FormData();
+      fd.append('formType',   'create');
+      fd.append('name',       document.getElementById('field-name').value.trim());
+      fd.append('email',      document.getElementById('field-email').value.trim());
+      fd.append('path',       'Create');
+      fd.append('option',     optSel.value);
+      fd.append('claim',      document.getElementById('field-claim').value.trim());
+      fd.append('evidence',   document.getElementById('field-evidence').value.trim());
+      fd.append('link',       document.getElementById('field-link').value.trim());
+      fd.append('ethics',     document.getElementById('field-ethics').checked ? 'Yes' : 'No');
+      fd.append('reflection', document.getElementById('field-reflection').value.trim());
+
+      try {
+        await fetch(APPS_SCRIPT_URL, { method: 'POST', body: fd, mode: 'no-cors' });
+        form.style.display = 'none';
+        successEl.classList.add('is-visible');
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        errorDetail.textContent = 'Your submission could not be sent. Please check your connection and try again.';
+        errorEl.classList.add('is-visible');
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        submitBtn.classList.remove('is-loading');
+        updateSubmitState();
+        submitBtn.textContent = 'Submit my Create entry';
+      }
+    });
+
+    // ── Nav toggle ────────────────────────────────────────────────────────────
+    const toggle = document.querySelector('.nav-toggle');
+    const nav    = document.getElementById('site-nav');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('is-open');
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+  </script>
+
+</body>
+</html>
