@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Scorecard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/print.css" media="print" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="page">
+      <header class="hero">
+        <div class="hero-top">
+          <p class="eyebrow">Evaluation Studio</p>
+          <div class="top-controls">
+            <label class="theme-picker">
+              Theme
+              <select id="themeSelect">
+                <option value="sunset">Sunset</option>
+                <option value="ocean" selected>Ocean</option>
+                <option value="ocean-calm">Ocean Calm</option>
+                <option value="forest">Forest</option>
+                <option value="white">White</option>
+              </select>
+            </label>
+            <details class="a11y-menu">
+              <summary>Accessibility</summary>
+              <div class="a11y-panel">
+                <label>
+                  <input id="a11yLargeText" type="checkbox" />
+                  Larger Text
+                </label>
+                <label>
+                  <input id="a11yHighContrast" type="checkbox" />
+                  High Contrast
+                </label>
+              </div>
+            </details>
+          </div>
+        </div>
+        <h1>Chatbot Scorecard</h1>
+        <div class="intro-box">
+          <p class="intro">
+            This scorecard is intended to help measure how your SRH chatbot is performing compared to industry best practice. By filling out high/medium/low below based on the Metric Scoring Cheat Sheet, you can identify areas of strength and where investment is needed to improve.
+          </p>
+          <p class="intro">
+            The scorecard measures chatbots across three key dimensions: Product design and development, User experience, and Forward-looking metrics.
+          </p>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-heading">
+          <h2>Chatbot Profile</h2>
+          <p></p>
+        </div>
+        <div class="grid two">
+          <label>
+            Chatbot Name
+            <input id="chatbotName" type="text" />
+          </label>
+          <label>
+            Version / Context
+            <input id="chatbotVersion" type="text" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-heading">
+          <h2>Metrics</h2>
+                    <p>Choose `Low`, `Medium`, or `High` for each metric based on the scoring criteria.</p>
+
+          <div class="progress-container">
+          <div class="progress-label">
+          <span id="progressText">
+             0 of 30 completed
+          </span>
+        </div>
+
+  <div class="progress-bar">
+    <div id="progressFill"></div>
+  </div>
+</div>
+        </div>
+
+        <div id="dimensionTabs" class="dimension-tabs"></div>
+        <div id="metricsContainer" class="metrics"></div>
+
+        <div class="actions">
+          <button id="calculateBtn" type="button">Calculate Score</button>
+          <button id="resetBtn" type="button"> Clear all fields</button>
+        </div>
+      </section>
+
+      <section id="results" class="card hidden" aria-live="polite">
+        <div class="card-heading">
+          <h2>Results</h2>
+          <p>Weighted performance summary by dimension and metric bucket.</p>
+        </div>
+
+        <div class="result-topline">
+          <strong>Total Score:</strong>
+          <span id="totalScore" class="mono">0%</span>
+        </div>
+
+        <div class="results-grid-two">
+          <div>
+            <h3 class="result-subtitle">By High Level Dimension</h3>
+            <div id="dimensionCards" class="dimension-cards"></div>
+          </div>
+          <div>
+            <h3 class="result-subtitle">Legend</h3>
+            <table class="result-table legend-table">
+              <thead>
+                <tr>
+                  <th>Range</th>
+                  <th>Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="legend-critical"><td>&lt;40%</td><td>Needs immediate improvement</td></tr>
+                <tr class="legend-challenge"><td>40-60%</td><td>Some challenges, address when possible</td></tr>
+                <tr class="legend-good"><td>60-80%</td><td>Good, see what areas would benefit from additional investment</td></tr>
+                <tr class="legend-strong"><td>80%+</td><td>Strength, ensure that you can maintain these areas</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3 class="result-subtitle print-only">
+          Summary of Metric Buckets
+        </h3>
+
+        <div id="printBucketCards" class="pdf-bucket-cards print-only"></div>
+
+        <table class="result-table screen-only">
+          <thead>
+            <tr>
+              <th>High level dimension</th>
+              <th>Metric bucket</th>
+              <th>Score (%)</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="bucketResultsBody"></tbody>
+        </table>
+
+        <div class="actions">
+          <button id="downloadPdfBtn" type="button">Download results PDF</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-heading">
+          <h2>Scorecard Data</h2>
+          <p></p>
+        </div>
+        <div>
+          <p>
+            This application runs entirely within your browser.
+            <strong>Your responses are not collected, transmitted or stored on external servers.</strong>
+          </p>
+          <p>
+            You may optionally export your scorecard to your own device and import it later to continue your work. Use JSON export/import or download a PDF report via your browser's print-to-PDF option.
+          </p>
+          <div class="actions">
+            <button id="importBtn" type="button">Import Assessment</button>
+            <button id="exportBtn" type="button">Export Assessment</button>
+            <input id="assessmentImport" type="file" accept=".json" hidden />
+          </div>
+        </div>
+      </section>
+
+      <footer class="landing-footer">
+  <div class="footer-links">
+    <a href="terms.html">Terms of Use</a>
+
+    <span>•</span>
+
+    <a href="mailto:your@email.com">Feedback</a>
+
+    <span>•</span>
+
+    <span>Version 1.0</span>
+  </div>
+  <div class="terms-license-note">
+    <p><strong>Copyright and License</strong><br>Framework and Scorecard for Evaluating Sexual and Reproductive Health Chatbots in the Global South © 2026 by Ana Montanez, Maria Luiza Lima, Najiihah Ahmad, Savita Bailur, Yasmina Male is licensed under Creative Commons Attribution 2.0 International. To view a copy of this license, visit <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">https://creativecommons.org/licenses/by/4.0/</a>.</p>
+    <p>Chatbot website design by Najiihah Ahmad in partnership with GitHub Copilot and Codex.</p>
+
+  </div>
+</footer>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
+

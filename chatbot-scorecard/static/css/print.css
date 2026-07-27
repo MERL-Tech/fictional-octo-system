@@ -1,0 +1,155 @@
+.print-only {
+  display: block !important;
+}
+
+.screen-only {
+  display: none !important;
+}
+
+.pdf-bucket-cards {
+  display: block !important;
+  margin-top: 8mm;
+}
+
+body,
+.page {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+.backdrop,
+.top-controls,
+.theme-picker,
+.a11y-menu,
+.dimension-tabs,
+.metrics,
+.actions,
+.card:not(#results),
+.screen-only {
+  display: none !important;
+}
+
+header.hero {
+  max-width: 190mm;
+  margin: 0 auto 10mm;
+}
+
+#results {
+  position: relative;
+  width: auto;
+  max-width: 190mm;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#results .result-table:not(.legend-table),
+#results .bucket-details-btn,
+#results .bucket-details-row.hidden {
+  display: none !important;
+}
+
+#results .legend-table {
+  display: table !important;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#results .legend-table th,
+#results .legend-table td {
+  padding: 0.55rem 0.5rem;
+  border: 3px solid #dfeaf1;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color-adjust: exact;
+}
+
+#results .legend-critical td {
+  background: #f8d7da !important;
+}
+
+#results .legend-challenge td {
+  background: #fae2d5 !important;
+}
+
+#results .legend-good td {
+  background: #fff4cc !important;
+}
+
+#results .legend-strong td {
+  background: #d6f5d6 !important;
+}
+
+#results .score-chip,
+#results .pdf-bucket-score {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color-adjust: exact;
+  color: #000;
+}
+
+#results .score-chip.legend-critical,
+#results .pdf-bucket-score.legend-critical {
+  background: #f8d7da !important;
+}
+
+#results .score-chip.legend-challenge,
+#results .pdf-bucket-score.legend-challenge {
+  background: #fae2d5 !important;
+}
+
+#results .score-chip.legend-good,
+#results .pdf-bucket-score.legend-good {
+  background: #fff4cc !important;
+}
+
+#results .score-chip.legend-strong,
+#results .pdf-bucket-score.legend-strong {
+  background: #d6f5d6 !important;
+}
+
+#results .pdf-bucket-card {
+  page-break-inside: avoid;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+#results .results-grid-two {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+#results .dimension-card {
+  page-break-inside: avoid;
+}
+
+#results .result-subtitle.print-only {
+  display: block !important;
+  page-break-before: always;
+  break-before: always;
+  margin-top: 12mm;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+}
+
+.landing-footer {
+  display: block !important;
+  margin: 14mm auto 0;
+  padding-top: 8mm;
+  border-top: 1px solid #ccc;
+  max-width: 190mm;
+  color: #000;
+  font-size: 0.9rem;
+}
+
+.landing-footer a {
+  color: #000;
+  text-decoration: underline;
+}
+
+@page {
+  margin: 18mm;
+}
