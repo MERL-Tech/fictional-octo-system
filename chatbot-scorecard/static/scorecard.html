@@ -17,46 +17,45 @@
     <div class="backdrop"></div>
     <main class="page">
       <header class="hero">
-        <div class="hero-top">
-          <p class="eyebrow">Evaluation Studio</p>
-          <div class="top-controls">
-            <label class="theme-picker">
-              Theme
-              <select id="themeSelect">
-                <option value="sunset">Sunset</option>
-                <option value="ocean" selected>Ocean</option>
-                <option value="ocean-calm">Ocean Calm</option>
-                <option value="forest">Forest</option>
-                <option value="white">White</option>
-              </select>
-            </label>
-            <details class="a11y-menu">
-              <summary>Accessibility</summary>
-              <div class="a11y-panel">
-                <label>
-                  <input id="a11yLargeText" type="checkbox" />
-                  Larger Text
-                </label>
-                <label>
-                  <input id="a11yHighContrast" type="checkbox" />
-                  High Contrast
-                </label>
-              </div>
-            </details>
-          </div>
-        </div>
-        <h1>Chatbot Scorecard</h1>
-        <div class="intro-box">
-          <p class="intro">
-            This scorecard is intended to help measure how your SRH chatbot is performing compared to industry best practice. By filling out high/medium/low below based on the Metric Scoring Cheat Sheet, you can identify areas of strength and where investment is needed to improve.
-          </p>
-          <p class="intro">
-            The scorecard measures chatbots across three key dimensions: Product design and development, User experience, and Forward-looking metrics.
-          </p>
-        </div>
+        <h1>SRH Chatbot Evaluation Framework</h1>
       </header>
 
-      <section class="card">
+      <!-- Navigation -->
+<div class="landing-tabs">
+
+  <a href="index.html" class="landing-tab-btn">
+    About the Framework
+  </a>
+
+  <a href="how-to-use.html" class="landing-tab-btn">
+    User Guide
+  </a>
+
+  <a href="metrics.html" class="landing-tab-btn">
+    Evaluation Metrics
+  </a>
+
+  <a href="scorecard.html" class="landing-tab-btn active">
+    Chatbot Scorecard
+  </a>
+
+  <a href="contact-us.html" class="landing-tab-btn">
+    Contact Us
+  </a>
+
+</div>
+
+
+<section class="card scorecard-card">
+<div class="card-heading">
+          <h2>Chatbot Scorecard</h2>
+          <p class="intro">
+            This scorecard is intended to help measure how your SRH chatbot is performing compared to industry best practice. By filling out high/medium/low below based on the scoring criteria, you can identify areas of strength and where investment is needed to improve.
+          </p>
+        </div>
+        </section>
+
+      <section class="card scorecard-card">
         <div class="card-heading">
           <h2>Chatbot Profile</h2>
           <p></p>
@@ -73,7 +72,7 @@
         </div>
       </section>
 
-      <section class="card">
+      <section class="card scorecard-card">
         <div class="card-heading">
           <h2>Metrics</h2>
                     <p>Choose `Low`, `Medium`, or `High` for each metric based on the scoring criteria.</p>
@@ -94,16 +93,29 @@
         <div id="dimensionTabs" class="dimension-tabs"></div>
         <div id="metricsContainer" class="metrics"></div>
 
+        <div id="dimensionCommentContainer" class="dimension-comment-container"></div>
+
         <div class="actions">
           <button id="calculateBtn" type="button">Calculate Score</button>
-          <button id="resetBtn" type="button"> Clear all fields</button>
+          <button id="resetBtn" type="button"> Clear assessment</button>
         </div>
       </section>
 
       <section id="results" class="card hidden" aria-live="polite">
         <div class="card-heading">
           <h2>Results</h2>
-          <p>Weighted performance summary by dimension and metric bucket.</p>
+        </div>
+        
+        <div class="pdf-chatbot-info print-only">
+          <h1 id="pdfChatbotName">Chatbot Evaluation Report</h1>
+           <p>
+            <strong>Version / Context:</strong>
+            <span id="pdfChatbotVersion"></span>
+          </p>
+          <p> 
+            <strong>Date assessed:</strong>
+            <span id="pdfAssessmentDate"></span>
+          </p>
         </div>
 
         <div class="result-topline">
@@ -141,6 +153,12 @@
 
         <div id="printBucketCards" class="pdf-bucket-cards print-only"></div>
 
+        <h3 class="result-subtitle print-only">
+  Additional Notes
+</h3>
+
+<div id="printDimensionComments" class="pdf-dimension-comments print-only"></div>
+
         <table class="result-table screen-only">
           <thead>
             <tr>
@@ -154,23 +172,19 @@
         </table>
 
         <div class="actions">
-          <button id="downloadPdfBtn" type="button">Download results PDF</button>
+          <button id="downloadPdfBtn" type="button">Save results as a PDF</button>
         </div>
       </section>
 
-      <section class="card">
+      <section class="card scorecard-card">
         <div class="card-heading">
           <h2>Scorecard Data</h2>
           <p></p>
         </div>
         <div>
-          <p>
-            This application runs entirely within your browser.
-            <strong>Your responses are not collected, transmitted or stored on external servers.</strong>
-          </p>
-          <p>
-            You may optionally export your scorecard to your own device and import it later to continue your work. Use JSON export/import or download a PDF report via your browser's print-to-PDF option.
-          </p>
+          <p> This application runs in your browser and does not send your assessment responses to an external server. 
+            Your responses may be stored locally in your browser to allow you to continue your assessment. 
+            You can also export your assessment as a JSON file for your own records.</p>
           <div class="actions">
             <button id="importBtn" type="button">Import Assessment</button>
             <button id="exportBtn" type="button">Export Assessment</button>
@@ -181,22 +195,24 @@
 
       <footer class="landing-footer">
   <div class="footer-links">
-    <a href="terms.html">Terms of Use</a>
-
-    <span>•</span>
-
-    <a href="mailto:your@email.com">Feedback</a>
-
-    <span>•</span>
-
-    <span>Version 1.0</span>
+    <a href="terms.html">Privacy Statement</a>
   </div>
   <div class="terms-license-note">
-    <p><strong>Copyright and License</strong><br>Framework and Scorecard for Evaluating Sexual and Reproductive Health Chatbots in the Global South © 2026 by Ana Montanez, Maria Luiza Lima, Najiihah Ahmad, Savita Bailur, Yasmina Male is licensed under Creative Commons Attribution 2.0 International. To view a copy of this license, visit <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">https://creativecommons.org/licenses/by/4.0/</a>.</p>
-    <p>Chatbot website design by Najiihah Ahmad in partnership with GitHub Copilot and Codex.</p>
+     <p>
+        <strong>Copyright and License</strong><br></p>
+        Chatbot website design by Najiihah Ahmad in partnership with
+        GitHub Copilot and Codex.
+      </p>
 
+      <p>
+        Framework for Evaluating Sexual and Reproductive Health Chatbots
+        in the Global South © 2026 by Ana Montanez, Maria Luiza Lima,
+        Najiihah Ahmad, Savita Bailur, Yasmina Male is licensed under
+        Creative Commons Attribution 2.0 International.
+      </p>
   </div>
 </footer>
+
     </main>
 
     <script src="js/app.js"></script>

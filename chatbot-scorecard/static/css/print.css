@@ -34,6 +34,27 @@ header.hero {
   margin: 0 auto 10mm;
 }
 
+.pdf-chatbot-info {
+  display: block !important;
+  margin-bottom: 10mm;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid #ccc;
+}
+
+.pdf-chatbot-info h1 {
+  margin: 0 0 3mm;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.pdf-chatbot-info p {
+  margin: 1mm 0;
+  font-size: 0.95rem;
+  color: #000;
+}
+
+
 #results {
   position: relative;
   width: auto;
@@ -152,4 +173,12 @@ header.hero {
 
 @page {
   margin: 18mm;
+}
+
+@media print {
+
+  .landing-tabs {
+    display: none !important;
+  }
+
 }

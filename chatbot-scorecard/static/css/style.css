@@ -93,6 +93,22 @@
   box-sizing: border-box;
 }
 
+:focus-visible {
+  outline: 3px solid var(--warn);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--font-main);
@@ -253,6 +269,10 @@ textarea {
   color: var(--muted);
 }
 
+.card-heading li {
+  color: var(--muted);
+}
+
 .grid.two {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -282,9 +302,14 @@ select {
   gap: 0.8rem;
 }
 
+.dimension-comment-container {
+  margin-top: 1.5rem;
+}
+
 .dimension-tabs {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.9rem;
   margin-bottom: 1.1rem;
 }
@@ -433,7 +458,6 @@ button:hover {
 .bucket-details {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-  color-adjust: exact;
 }
 
 .cheat-table {
@@ -768,13 +792,15 @@ button:hover {
     gap:.6rem;
 }
 
-.metric-cheat{
+.metric-cheat,
+.explainer {
     border:none;
     background:transparent;
     margin-top:0.35rem;
 }
 
-.metric-cheat summary{
+.metric-cheat summary,
+.explainer summary {
     display:inline-block;
     cursor:pointer;
     padding:0.25rem 0.6rem;
@@ -787,7 +813,8 @@ button:hover {
     margin-bottom:0.5rem;
 }
 
-.metric-cheat-body{
+.metric-cheat-body,
+.explainer-body {
     padding:1rem;
 }
 
@@ -856,14 +883,6 @@ button:hover {
   font-size: 0.9rem;
 }
 
-.landing-footer {
-  margin-top: 3rem;
-  padding: 2rem 0;
-  text-align: center;
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
 .landing-footer .footer-links {
   display: flex;
   justify-content: center;
@@ -918,6 +937,41 @@ button:hover {
     border: 1px solid #dbeafe;
 }
 
+/* Collapsible summary styling for individual landing cards */
+.landing-card details {
+  display: block;
+}
+
+.landing-card summary {
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  list-style: none;
+  padding: 0.25rem 0;
+}
+
+.landing-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.landing-card summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.18s ease;
+}
+
+.landing-card details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.landing-card .card-content {
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
 .progress-container {
   margin:20px 0;
 }
@@ -940,4 +994,308 @@ button:hover {
   text-align: center;
   width: 100%;
   padding: 10px;
+}
+
+/* =========================
+   Homepage Tabs
+   ========================= */
+
+.landing-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 30px 0 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.landing-tab-btn {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 14px 24px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  text-decoration: none; /* removes link underline */
+}
+
+
+.landing-tab-btn:hover {
+  color: var(--accent);
+  transform: none;
+}
+
+.landing-tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content {
+  display: block;
+}
+
+/* =========================
+   Evaluation Metrics Page
+   ========================= */
+
+.metrics-card {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.metric-dimension-section {
+  margin-top: 2.5rem;
+}
+
+.metric-dimension-section + .metric-dimension-section {
+  border-top: 1px solid var(--line);
+  padding-top: 2.5rem;
+}
+
+.metric-dimension-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.metric-dimension-header h2 {
+  margin: 0;
+  color: var(--ink);
+}
+
+.metric-dimension-header p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.dimension-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent), #ffffff 88%);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.metric-bucket {
+  margin-top: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.metric-bucket > h3 {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--accent), #ffffff 93%);
+  color: var(--warn);
+  font-size: 0.95rem;
+}
+
+.metric-list {
+  display: grid;
+}
+
+.metric-item {
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.metric-item:first-child {
+  border-top: none;
+}
+
+.metric-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.metric-item h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.metric-item p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .metric-dimension-header {
+    gap: 0.75rem;
+  }
+
+  .dimension-number {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .metric-item-top {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .metric-weight {
+    align-self: flex-start;
+  }
+}
+
+/* =========================
+   Collapsible Dimension Cards
+   ========================= */
+
+.metric-dimension-card {
+  margin-top: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.metric-dimension-card + .metric-dimension-card {
+  margin-top: 1rem;
+}
+
+.metric-dimension-card > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.metric-dimension-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.metric-dimension-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  margin: 0;
+  background: #fff;
+  transition: background 0.2s ease;
+}
+
+.metric-dimension-header:hover {
+  background: color-mix(in srgb, var(--accent), #ffffff 96%);
+}
+
+.metric-dimension-header > div {
+  flex: 1;
+}
+
+.metric-dimension-header h2 {
+  margin: 0;
+  color: var(--ink);
+}
+
+.metric-dimension-header p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.dimension-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent), #ffffff 88%);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.dimension-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent), #ffffff 90%);
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+/* Change + to − when open */
+
+.metric-dimension-card[open] .dimension-toggle {
+  transform: rotate(45deg);
+}
+
+/* Content inside the card */
+
+.metric-dimension-card[open] {
+  padding-bottom: 1.25rem;
+}
+
+.metric-dimension-card .metric-bucket {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.metric-dimension-card .metric-bucket:first-of-type {
+  margin-top: 1.25rem;
+}
+
+.landing-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.landing-actions .scorecard-btn {
+  min-width: 220px;
+  text-align: center;
+}
+
+.example-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.example-link:hover {
+  color: var(--warn);
+}
+
+.scorecard-card {
+  max-width: 760px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }

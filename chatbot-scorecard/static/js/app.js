@@ -220,13 +220,19 @@ const totalScoreEl = document.getElementById("totalScore");
 const dimensionCards = document.getElementById("dimensionCards");
 const bucketResultsBody = document.getElementById("bucketResultsBody");
 const printBucketCards = document.getElementById("printBucketCards");
-const themeSelect = document.getElementById("themeSelect");
-const a11yLargeText = document.getElementById("a11yLargeText");
-const a11yHighContrast = document.getElementById("a11yHighContrast");
+const dimensionCommentContainer = document.getElementById("dimensionCommentContainer");
+const printDimensionComments = document.getElementById("printDimensionComments");
 
 let activeDimension = null;
-const ratingSelections = Object.fromEntries(metricTemplates.map((metric) => [metric.id, ""]));
+const ratingSelections = Object.fromEntries(
+  metricTemplates.map((metric) => [metric.id, ""])
+);
 
+const dimensionComments = {
+  "PRODUCT DESIGN": "",
+  "USER EXPERIENCE": "",
+  "FORWARD- LOOKING": ""
+};
 function loadAssessment() {
   const raw = localStorage.getItem("chatbotAssessment");
   if (!raw) return;
@@ -238,6 +244,13 @@ function loadAssessment() {
     }
     if (data.chatbotVersion) {
       document.getElementById("chatbotVersion").value = data.chatbotVersion;
+    }
+    if (data.dimensionComments && typeof data.dimensionComments === "object") {
+      Object.keys(dimensionComments).forEach((dimension) => {
+        if (typeof data.dimensionComments[dimension] === "string") {
+          dimensionComments[dimension] = data.dimensionComments[dimension];
+        }
+      });
     }
     if (data.metrics) {
       if (Array.isArray(data.metrics)) {
@@ -264,6 +277,7 @@ function getAssessmentData() {
     chatbotName: document.getElementById("chatbotName").value,
     chatbotVersion: document.getElementById("chatbotVersion").value,
     exportedAt: new Date().toISOString(),
+    dimensionComments: { ...dimensionComments },
     metrics: metricTemplates.map((metric) => ({
       id: metric.id,
       name: metric.name,
@@ -291,6 +305,13 @@ function downloadJSON(data, filename) {
 function importAssessmentData(data) {
   if (data.chatbotName) document.getElementById("chatbotName").value = data.chatbotName;
   if (data.chatbotVersion) document.getElementById("chatbotVersion").value = data.chatbotVersion;
+  if (data.dimensionComments && typeof data.dimensionComments === "object") {
+    Object.keys(dimensionComments).forEach((dimension) => {
+      if (typeof data.dimensionComments[dimension] === "string") {
+        dimensionComments[dimension] = data.dimensionComments[dimension];
+      }
+    });
+  }
   if (data.metrics) {
     if (Array.isArray(data.metrics)) {
       data.metrics.forEach((metric) => {
@@ -430,6 +451,7 @@ function buildBucketDetails(dimension, bucket) {
 
 function renderMetrics() {
   metricsContainer.innerHTML = "";
+  dimensionCommentContainer.innerHTML = "";
   const grouped = groupMetrics(metricTemplates);
   const dimensions = Array.from(grouped.keys());
   if (!activeDimension || !grouped.has(activeDimension)) activeDimension = dimensions[0];
@@ -494,7 +516,7 @@ row.innerHTML = `
     Rating
 
     <select data-metric-id="${metric.id}">
-        <option value="" ${ratingSelections[metric.id] === "" ? "selected" : ""}>Select rating</option>
+        <option value="" ${ratingSelections[metric.id] === "" ? "selected" : ""}>Select</option>
         <option value="high" ${ratingSelections[metric.id] === "high" ? "selected" : ""}>High</option>
         <option value="medium" ${ratingSelections[metric.id] === "medium" ? "selected" : ""}>Medium</option>
         <option value="low" ${ratingSelections[metric.id] === "low" ? "selected" : ""}>Low</option>
@@ -508,11 +530,6 @@ row.innerHTML = `
         updateProgress();
         saveAssessment();
       });
-      select.addEventListener("input", () => {
-        ratingSelections[metric.id] = select.value;
-        updateProgress();
-        saveAssessment();
-      });
       bucketWrap.appendChild(row);
     });
 
@@ -520,6 +537,20 @@ row.innerHTML = `
   });
 
   metricsContainer.appendChild(panel);
+
+  const commentLabel = document.createElement("label");
+  commentLabel.className = "dimension-comment-label";
+  commentLabel.innerHTML = `
+    Additional notes for ${activeDimension}
+    <textarea data-dimension-comment="${activeDimension}" rows="4" placeholder="Add notes about this dimension..."></textarea>
+  `;
+  const commentInput = commentLabel.querySelector("textarea");
+  commentInput.value = dimensionComments[activeDimension];
+  commentInput.addEventListener("input", () => {
+    dimensionComments[activeDimension] = commentInput.value;
+    saveAssessment();
+  });
+  dimensionCommentContainer.appendChild(commentLabel);
   updateProgress();
 }
 
@@ -563,6 +594,7 @@ function legendClassForPercent(percent) {
 }
 
 function renderResults(result) {
+  updatePrintHeader();
   resultsSection.classList.remove("hidden");
   totalScoreEl.textContent = `${result.total_score.toFixed(1)}%`;
 
@@ -602,6 +634,17 @@ function renderResults(result) {
 
   bucketResultsBody.innerHTML = "";
   printBucketCards.innerHTML = "";
+  printDimensionComments.innerHTML = "";
+
+  Object.entries(dimensionComments).forEach(([dimension, comment]) => {
+    const commentSection = document.createElement("section");
+    commentSection.className = "pdf-dimension-comment";
+    commentSection.innerHTML = `
+      <h4>${dimension}</h4>
+      <p>${comment.trim() || "No notes provided."}</p>
+    `;
+    printDimensionComments.appendChild(commentSection);
+  });
 
   Array.from(bucketAgg.values()).forEach((scores) => {
     const percent = scores.max > 0 ? (scores.raw / scores.max) * 100 : 0;
@@ -639,31 +682,6 @@ function renderResults(result) {
   });
 }
 
-function wireThemeSelector() {
-  document.documentElement.setAttribute("data-theme", themeSelect.value);
-  themeSelect.addEventListener("change", () => {
-    document.documentElement.setAttribute("data-theme", themeSelect.value);
-  });
-}
-
-function wireAccessibilityControls() {
-  a11yLargeText.addEventListener("change", () => {
-    if (a11yLargeText.checked) {
-      document.documentElement.setAttribute("data-a11y-text", "large");
-      return;
-    }
-    document.documentElement.removeAttribute("data-a11y-text");
-  });
-
-  a11yHighContrast.addEventListener("change", () => {
-    if (a11yHighContrast.checked) {
-      document.documentElement.setAttribute("data-a11y-contrast", "high");
-      return;
-    }
-    document.documentElement.removeAttribute("data-a11y-contrast");
-  });
-}
-
 function onCalculate() {
   snapshotVisibleSelections();
   const { ratings, missing } = collectRatings();
@@ -695,7 +713,11 @@ exportBtn.addEventListener("click", () => {
 
 downloadPdfBtn.addEventListener("click", () => {
   if (resultsSection.classList.contains("hidden")) return;
+
+  snapshotVisibleSelections();
   saveAssessment();
+  updatePrintHeader();
+
   window.print();
 });
 
@@ -719,8 +741,6 @@ assessmentImport.addEventListener("change", (event) => {
 
 loadAssessment();
 renderMetrics();
-wireThemeSelector();
-wireAccessibilityControls();
 updateProgress();
 
 function saveAssessment() {
@@ -764,23 +784,20 @@ function updateProgress(){
 
 }
 
-document
-.getElementById("resetBtn")
-.addEventListener("click",()=>{
+function updatePrintHeader() {
 
- if(confirm(
- "Clear all assessment data?"
- )){
+  const chatbotName =
+    document.getElementById("chatbotName").value.trim();
 
- localStorage.removeItem(
- "chatbotAssessment"
- );
+  const chatbotVersion =
+    document.getElementById("chatbotVersion").value.trim();
 
- location.reload();
+  document.getElementById("pdfChatbotName").textContent =
+    chatbotName || "Chatbot Evaluation Report";
 
- }
+  document.getElementById("pdfChatbotVersion").textContent =
+    chatbotVersion || "Not provided";
 
-});
-
-renderMetrics();
-updateProgress();
+  document.getElementById("pdfAssessmentDate").textContent =
+    new Date().toLocaleDateString();
+}
